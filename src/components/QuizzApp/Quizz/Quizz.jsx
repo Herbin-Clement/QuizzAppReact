@@ -1,6 +1,7 @@
 import react from 'react';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
+import Validate from './Validate.jsx';
 
 const Quizz = () => {
     return(
@@ -10,6 +11,7 @@ const Quizz = () => {
             <Answer answer={"Non"}></Answer>
             <Answer answer={"Peut-être"}></Answer>
             <Answer answer={"Je sais pas"}></Answer>
+            <Validate></Validate>
         </div>
     )
 };
