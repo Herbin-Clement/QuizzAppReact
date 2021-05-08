@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div className="flex flex-col">
       <Header></Header>
-      <QuizzApp></QuizzApp>
+      <QuizzApp nbQuestion={5}></QuizzApp>
     </div>
   );
 };
