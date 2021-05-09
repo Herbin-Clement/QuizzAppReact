@@ -3,7 +3,7 @@ import Quizz from './Quizz/Quizz.jsx';
 
 const QuizzApp = () => {
     return (
-        <div className="flex justify-center items-center w-full h-11/12 bg-black0">
+        <div className="flex justify-center w-full h-11/12 pt-8p bg-black0">
             <Quizz></Quizz>
         </div>
     )
