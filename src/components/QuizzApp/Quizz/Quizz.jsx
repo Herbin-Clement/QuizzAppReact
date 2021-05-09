@@ -49,9 +49,12 @@ const Quizz = ({ nbQuestion, endOfQuizz }) => {
 
     const validateAnswer = async () => {
         if (selected !== -1) {
-            console.log(correctAnswer === answers[selected]);
             setPoint((prevState) => prevState + 10);
-            nextQuestion();
+            if (nbCurrentQuestion === nbQuestion) {
+                endOfQuizz();
+            } else {
+                nextQuestion();
+            }
         }
     }
  

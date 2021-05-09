@@ -1,5 +1,6 @@
 import react, { useState } from 'react';
 import Quizz from './Quizz/Quizz.jsx';
+import QuizzSettings from './QuizzSettings.jsx';
 
 const QuizzApp = () => {
 
@@ -8,12 +9,18 @@ const QuizzApp = () => {
     const [isQuizzEnd, setIsQuizzEnd] = useState(false);
 
     const endOfQuizz = () => {
-        setIsQuizzEnd((prevState) => false);
+        setIsQuizzEnd((prevState) => true);
+        console.log("END");
     }
+
+    const startOfQuizz = () => {
+        setIsQuizzStarted((prevState) => true)
+    } 
 
     return (
         <div className="flex justify-center w-full h-11/12 pt-5p bg-black0">
-            <Quizz nbQuestion={nbQuestion} endOfQuizz={endOfQuizz}></Quizz>
+            {!isQuizzStarted && <QuizzSettings startOfQuizz={startOfQuizz}/>}
+            {isQuizzStarted && !isQuizzEnd && <Quizz nbQuestion={nbQuestion} endOfQuizz={endOfQuizz}/>}
         </div>
     )
 };
