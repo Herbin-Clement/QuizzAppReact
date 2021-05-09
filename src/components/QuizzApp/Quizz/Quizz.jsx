@@ -13,13 +13,14 @@ const displayAnswers = (answerData, selectAnswer, selected) => {
     return a;
 }
 
-const Quizz = ({ nbQuestion }) => {
+const Quizz = ({ nbQuestion, endOfQuizz }) => {
 
     const [question, setQuestion] = useState("");
     const [answers, setAsnwers] = useState([]);
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [nbCurrentQuestion, setNbCurrentQuestion] = useState(0);
     const [selected, setSelected] = useState(-1);
+    const [point, setPoint] = useState(0);
  
     useEffect(() => {
         nextQuestion();
@@ -43,14 +44,23 @@ const Quizz = ({ nbQuestion }) => {
         setQuestion((prevState) => question);
         setCorrectAnswer((prevState) => correctAnswer);
         setNbCurrentQuestion((prevState) => prevState += 1);
-        console.log(nbCurrentQuestion);
+        console.log(`nbCurrentQuestion : ${nbCurrentQuestion}`);
     }
 
+    const validateAnswer = async () => {
+        if (selected !== -1) {
+            console.log(correctAnswer === answers[selected]);
+            setPoint((prevState) => prevState + 10);
+            nextQuestion();
+        }
+    }
+ 
     return(
-        <div className="flex flex-col items-center w-3/10 h-6/10">
+        <div className="flex flex-col items-center w-4/10 h-7/10">
+            <div className="w-10/10 h-1/10 mb-10 text-center text-cloud text-xl text-alig text-amethist">Question {nbCurrentQuestion + " / " + nbQuestion}</div>
             <Question question={question}></Question>
             {displayAnswers(answers, selectAnswer, selected)}
-            <Validate validate={nextQuestion}></Validate>
+            <Validate validate={validateAnswer} isDisabled={selected === -1 ? true : false}></Validate>
         </div>
     )
 };
