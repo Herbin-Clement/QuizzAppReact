@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 import Validate from './Validate.jsx';
@@ -13,14 +13,14 @@ const displayAnswers = (answerData, selectAnswer, selected) => {
     return a;
 }
 
-const Quizz = ({ nbQuestion, endOfQuizz }) => {
+const Quizz = ({ data, endOfQuizz }) => {
 
     const [question, setQuestion] = useState("");
     const [answers, setAsnwers] = useState([]);
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [nbCurrentQuestion, setNbCurrentQuestion] = useState(0);
     const [selected, setSelected] = useState(-1);
-    const [point, setPoint] = useState(0);
+    const [score, setScore] = useState(0);
  
     useEffect(() => {
         nextQuestion();
@@ -44,14 +44,14 @@ const Quizz = ({ nbQuestion, endOfQuizz }) => {
         setQuestion((prevState) => question);
         setCorrectAnswer((prevState) => correctAnswer);
         setNbCurrentQuestion((prevState) => prevState += 1);
-        console.log(`nbCurrentQuestion : ${nbCurrentQuestion}`);
     }
 
     const validateAnswer = async () => {
         if (selected !== -1) {
-            setPoint((prevState) => prevState + 10);
-            if (nbCurrentQuestion === nbQuestion) {
-                endOfQuizz();
+            setScore((prevState) => prevState + 10);
+            if (nbCurrentQuestion === data.nbQuestion) {
+                data.score = score;
+                endOfQuizz(data);
             } else {
                 nextQuestion();
             }
@@ -60,7 +60,7 @@ const Quizz = ({ nbQuestion, endOfQuizz }) => {
  
     return(
         <div className="flex flex-col items-center w-4/10 h-7/10">
-            <div className="w-10/10 h-1/10 mb-10 text-center text-cloud text-xl text-alig text-amethist">Question {nbCurrentQuestion + " / " + nbQuestion}</div>
+            <div className="w-10/10 h-1/10 mb-10 text-center text-xl text-alig text-amethist">Question {nbCurrentQuestion + " / " + data.nbQuestion}</div>
             <Question question={question}></Question>
             {displayAnswers(answers, selectAnswer, selected)}
             <Validate validate={validateAnswer} isDisabled={selected === -1 ? true : false}></Validate>

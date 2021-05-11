@@ -1,6 +1,3 @@
-import react from 'react';
-import { useState } from 'react';
-
 const Answer = ({ answer, isSelected, select, id }) => {
 
     let borderColor = isSelected ? "border-cloud" : "border-amethist";
