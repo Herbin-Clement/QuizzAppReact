@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Quizz from './Quizz/Quizz.jsx';
 import QuizzSettings from './QuizzSettings.jsx';
 import QuizzResult from './QuizzResult.jsx';

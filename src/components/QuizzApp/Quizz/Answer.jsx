@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Answer = ({ answer, isSelected, select, id }) => {
 
     let borderColor = isSelected ? "border-cloud" : "border-amethist";
