@@ -29,15 +29,15 @@ const Quizz = ({ data, endOfQuizz }) => {
     }, []);
 
     const getQuestionIds = async (n) => {
-        const ids = await fetch(`http://127.0.0.1/random/${n}`);
-        const res = await data.json();
-        setQuestionIds(res);
+        const data = await fetch(`http://127.0.0.1/random/${n}`);
+        const ids = await data.json();
+        setQuestionIds(ids);
     }
 
     const getQuestion = async (id) => {
         const data = await fetch(`http://127.0.0.1:3001/question/${id}`);
-        const res = await data.json();
-        return res;
+        const question = await data.json();
+        return question;
     }
 
     const selectAnswer = (n) => {
