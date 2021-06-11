@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Input = ({ placeholder, isSelected, id, select, changeValue }) => {
+const Input = ({ placeholder, isSelected, id, select, changeValue, reset }) => {
 
     let borderColor = isSelected ? "border-cloud" : "border-amethist";
 
@@ -11,6 +11,10 @@ const Input = ({ placeholder, isSelected, id, select, changeValue }) => {
         setValue(() => value);
         changeValue(value, id);
     }
+
+    useEffect(() => {
+        setValue("");
+    }, [reset]);
 
     return (
         <input onClick={() => select(id)} onChange={(event) => updateValue(event)} placeholder={placeholder} value={value} className={`w-4/10 h-12 mt-2 p-2 border-b-2 ${borderColor} outline-none text-xl bg-black0`}/>

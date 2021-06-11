@@ -8,6 +8,7 @@ const App = () => {
     <div className="flex flex-col">
       <Header></Header>
       <FormQuestion></FormQuestion>
+      {/* <QuizzApp></QuizzApp> */}
     </div>
   );
 };
