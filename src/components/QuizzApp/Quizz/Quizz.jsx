@@ -21,15 +21,22 @@ const Quizz = ({ data, endOfQuizz }) => {
     const [nbCurrentQuestion, setNbCurrentQuestion] = useState(0);
     const [selected, setSelected] = useState(-1);
     const [score, setScore] = useState(0);
- 
+    const [questionIds, setQuestionIds] = useState([]);
+
     useEffect(() => {
+        getQuestionIds(data.nbQuestion);
         nextQuestion();
     }, []);
 
-    const getQuestion = async () => {
-        const data = await fetch('http://127.0.0.1:3001/');
+    const getQuestionIds = async (n) => {
+        const ids = await fetch(`http://127.0.0.1/random/${n}`);
         const res = await data.json();
-        console.log(res);
+        setQuestionIds(res);
+    }
+
+    const getQuestion = async (id) => {
+        const data = await fetch(`http://127.0.0.1:3001/question/${id}`);
+        const res = await data.json();
         return res;
     }
 
@@ -38,7 +45,7 @@ const Quizz = ({ data, endOfQuizz }) => {
     } 
 
     const nextQuestion = async () => {
-        const { question, answers, correctAnswer } = await getQuestion();
+        const { question, answers, correctAnswer } = await getQuestion(nbCurrentQuestion);
         setSelected((prevState) => -1);
         setAsnwers((prevState) => answers);
         setQuestion((prevState) => question);

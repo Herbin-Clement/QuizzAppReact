@@ -23,7 +23,6 @@ const FormQuestion = () => {
             prevState[id - 1] = value;
             return prevState;
         });
-        console.log(answers);
     }
 
     const sendData = async (event) => {
