@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import CategoyCard from './Quizz/CategoryCard';
+import CategoryCard from './Quizz/CategoryCard';
 
 const QuizzSettings = ({ startOfQuizz}) => {
 
@@ -21,7 +21,7 @@ const QuizzSettings = ({ startOfQuizz}) => {
         });
     }
 
-    useEffect( async () => {
+    useEffect(() => {
         // const data = await fetch('localhost:3001/categories');
         const data = {data: ["Science", "Nature", "Music", "Film", "Serie"]}
         setCategories(data.data);
@@ -31,7 +31,7 @@ const QuizzSettings = ({ startOfQuizz}) => {
         <div className="flex flex-grow justify-center items-center w-4/10 h-7/10 text-cloud text-xl">
             {
                 categories.map((categories, key) => {
-                    return <CategoyCard category={categories} isSelected={catSelected.includes(key)} key={key} id={key} toggleCategory={toggleCategory}></CategoyCard>;
+                    return <CategoryCard category={categories} isSelected={catSelected.includes(key)} key={key} id={key} toggleCategory={toggleCategory}></CategoryCard>;
                 })
             }
             {/* <div>Number of questions : </div>

@@ -7,8 +7,8 @@ const App = () => {
   return (
     <div className="flex flex-col">
       <Header></Header>
-      {/* <FormQuestion></FormQuestion> */}
-      <QuizzApp></QuizzApp>
+      <FormQuestion></FormQuestion>
+      {/* <QuizzApp></QuizzApp> */}
     </div>
   );
 };
