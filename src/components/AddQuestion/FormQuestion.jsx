@@ -20,25 +20,9 @@ const FormQuestion = () => {
     }, [])
 
     const getCat = async () => {
-        const data = await fetch("http://127.0.0.1:3001/categories");
+        const data = await fetch("http://localhost:3001/categories");
         const cat = await data.json();
         return cat.data;
-    }
-
-    const changeCatSelected = (cat) => {
-        setCatSelected(cat);
-    }
-
-    const changeQuestion = (event) => {
-        setQuestion(() => event.target.value);
-    }
-
-    const selectAnswer = (id) => {
-        setIdGoodAnswer(id);
-    }
-
-    const selectCat = (name) => {
-        setCatSelected(name);
     }
 
     const changeAnswer = (value, id) => {
@@ -82,16 +66,16 @@ const FormQuestion = () => {
                 <div className="flex justify-center w-10/10 h-15p">
                 {
                     categories.map((category, key) => {
-                        return <CategoryCard category={category} isSelected={catSelected === category} key={key} changeCatSelected={changeCatSelected}></CategoryCard>;
+                        return <CategoryCard category={category} isSelected={catSelected === category} key={key} changeCatSelected={setCatSelected}></CategoryCard>;
                     })
                 }
                 </div>
-                <input onChange={(event) => changeQuestion(event)} value={question} placeholder="Your Question" className={`w-4/10 h-12 mt-2 mb-10 p-2 border-b-2 border-amethist outline-none text-xl bg-black0`}/>
+                <input onChange={({target}) => setQuestion(target.value)} value={question} placeholder="Your Question" className={`w-4/10 h-12 mt-2 mb-10 p-2 border-b-2 border-amethist outline-none text-xl bg-black0`}/>
                 <div className="flex flex-wrap justify-around mb-16">
-                    <Input placeholder="Answer 1" isSelected={idGoodAnswer === 0 ? true : false} select={selectAnswer} id={0} changeValue={changeAnswer} reset={resetData}></Input>
-                    <Input placeholder="Answer 2" isSelected={idGoodAnswer === 1 ? true : false} select={selectAnswer} id={1} changeValue={changeAnswer} reset={resetData}></Input>
-                    <Input placeholder="Answer 3" isSelected={idGoodAnswer === 2 ? true : false} select={selectAnswer} id={2} changeValue={changeAnswer} reset={resetData}></Input>
-                    <Input placeholder="Answer 4" isSelected={idGoodAnswer === 3 ? true : false} select={selectAnswer} id={3} changeValue={changeAnswer} reset={resetData}></Input>
+                    <Input placeholder="Answer 1" isSelected={idGoodAnswer === 0 ? true : false} select={setIdGoodAnswer} id={0} changeValue={changeAnswer} reset={resetData}></Input>
+                    <Input placeholder="Answer 2" isSelected={idGoodAnswer === 1 ? true : false} select={setIdGoodAnswer} id={1} changeValue={changeAnswer} reset={resetData}></Input>
+                    <Input placeholder="Answer 3" isSelected={idGoodAnswer === 2 ? true : false} select={setIdGoodAnswer} id={2} changeValue={changeAnswer} reset={resetData}></Input>
+                    <Input placeholder="Answer 4" isSelected={idGoodAnswer === 3 ? true : false} select={setIdGoodAnswer} id={3} changeValue={changeAnswer} reset={resetData}></Input>
                 </div>
                 <button onClick={(event) => sendData(event)} className={`px-10 py-3 border-2 ${disabled ? "border-cloud" : "border-amethist"} font-semibold`} disabled={disabled}>Submit</button>
             </form>
