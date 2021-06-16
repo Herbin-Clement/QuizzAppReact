@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
 
 import CategoryCard from './Quizz/CategoryCard';
 
@@ -27,7 +26,6 @@ const QuizzSettings = ({ startOfQuizz}) => {
     useEffect(async() => {
         const data = await fetch("http://localhost:3001/categories");
         const res = await data.json();
-        // const data = {data: ["Science", "Nature", "Music", "Film", "Serie"]}
         setCategories(res.data);
     }, []);
 
