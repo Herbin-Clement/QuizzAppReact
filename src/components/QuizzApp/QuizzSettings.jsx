@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
 
 import CategoryCard from './Quizz/CategoryCard';
 
@@ -12,35 +13,40 @@ const QuizzSettings = ({ startOfQuizz}) => {
         setNbQuestion((prevState) => prevState + n);
     }
 
-    const toggleCategory = (id) => {
-        console.log("yop");
+    const toggleCategory = (cat) => {
         setCatSelected((prevState) => {
-            if (prevState.includes(id)) prevState.splice(id)
-            else prevState.push(id);
-            return prevState;
+            if (prevState.includes(cat)) {
+                prevState = prevState.filter(e => e !== cat);
+                return [...prevState];
+            } else {
+                return [...prevState, cat];
+            }
         });
     }
 
-    useEffect(() => {
-        // const data = await fetch('localhost:3001/categories');
-        const data = {data: ["Science", "Nature", "Music", "Film", "Serie"]}
-        setCategories(data.data);
+    useEffect(async() => {
+        const data = await fetch("http://localhost:3001/categories");
+        const res = await data.json();
+        // const data = {data: ["Science", "Nature", "Music", "Film", "Serie"]}
+        setCategories(res.data);
     }, []);
 
     return (
-        <div className="flex flex-grow justify-center items-center w-4/10 h-7/10 text-cloud text-xl">
+        <div className="flex flex-col flex-grow justify-around items-center w-1/10 h-7/10 text-cloud text-xl">
+            <div className="flex justify-center w-10/10">
             {
-                categories.map((categories, key) => {
-                    return <CategoryCard category={categories} isSelected={catSelected.includes(key)} key={key} id={key} toggleCategory={toggleCategory}></CategoryCard>;
+                categories.map((category, key) => {
+                    return <CategoryCard category={category} isSelected={catSelected.includes(category)} key={key} toggleCategory={toggleCategory}></CategoryCard>;
                 })
             }
-            {/* <div>Number of questions : </div>
+            </div>
+            <div>Number of questions : </div>
             <div className="flex mt-1">
                 <div onClick={() => changeValue(-1)} className="p-1 border-2 border-amethist rounded bg-black1 cursor-pointer select-none">{"<"}</div>
                 <div className="flex justify-center items-center mx-2 w-48 border-2 border-amethist rounded bg-black1 ">{nbQuestion}</div>
                 <div onClick={() => changeValue(1)} className="p-1 border-2 border-amethist rounded bg-black1 cursor-pointer select-none">{">"}</div>
             </div>
-            <div onClick={() => startOfQuizz({nbQuestion})} className="mt-2 p-1 border-2 border-amethist rounded bg-black1 cursor-pointer select-none">Start !</div> */}
+            <div onClick={() => startOfQuizz({nbQuestion})} className="mt-2 p-1 border-2 border-amethist rounded bg-black1 cursor-pointer select-none">Start !</div>
         </div>
     );
 };
